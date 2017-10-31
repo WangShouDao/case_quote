@@ -20,7 +20,8 @@ def read_excel():
 		B.append(worksheet.cell_value(i,j))	
 	
 	for i in range(32, 48):
-		C.append(worksheet.cell_value(i,j))	
+		C.append(worksheet.cell_value(i,j))
+
 	return (A,B,C)
 	
 # 招标控制价
@@ -51,6 +52,7 @@ def calc_Avg(Y):
 
 # 计算集合中满足第二轮评标条件的最小值
 def calc_min(X, Y):
+	y=0
 	Avg, M2, M = calc_Avg(X)
 	if len(list(filter(lambda x : x >= M, Y))) != 0:
 		y = np.min(list(filter(lambda x : x >= M, Y)))
@@ -66,7 +68,7 @@ def combination_list(Y):
 	return list1
 
 def description(A0, B0, Avg, M2):
-	print("所有评标价的Avg值为: %f , 评标下浮的值M2为: %f" % (Avg, M2))	
+	print("所有评标价的Avg值为: %f, 评标下浮的值M2为: %f" % (Avg, M2))	
 	print("所有评标价中满足条件的最小值A0为: %f , 与中标条件的差值为： %f" % (A0, A0 - Avg))
 	print("公司评标价中满足条件的最小值B0为: %f , 与中标条件的差值为： %f" % (B0, B0 - Avg))
 	
@@ -104,9 +106,13 @@ def add_price(A, B, C):
 					A = A[:(len(A)-len(list1[i]))]
 					B = B[:(len(B)-len(list1[i]))]
 					k += 1
+				else:
+					A = A[:(len(A)-len(list1[i]))]
+					B = B[:(len(B)-len(list1[i]))]
 			else :
 				A = A[:(len(A)-len(list1[i]))]
 				B = B[:(len(B)-len(list1[i]))]
+				
 			if k > 10 :
 				return
 		if k == 1 :
